@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "about": {
+    "description": "Generated from a docker compose file for use on Cycle.io.",
+    "version": ""
+  },
+  "containers": {
+    "mariadb-node1": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "mariadb-node1",
+          "ports": [
+            "3306:3306",
+            "4567:4567",
+            "4568:4568",
+            "4444:4444"
+          ]
+        },
+        "deploy": {
+          "instances": 1
+        },
+        "runtime": {
+          "environment_vars": {
+            "MYSQL_ROOT_PASSWORD": "mypassword",
+            "MYSQL_DATABASE": "mydb",
+            "MYSQL_USER": "user",
+            "MYSQL_PASSWORD": "userpass",
+            "GALERA_CLUSTER_NAME": "my_galera_cluster",
+            "GALERA_CLUSTER_ADDRESS": "gcomm://mariadb-node1,mariadb-node2,mariadb-node3",
+            "GALERA_NODE_NAME": "mariadb-node1"
+          }
+        }
+      },
+      "name": "mariadb-node1",
+      "image": {
+        "origin": {
+          "type": "docker-hub",
+          "details": {
+            "target": "mariadb:latest"
+          }
+        }
+      },
+      "stateful": false
+    },
+    "mariadb-node2": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "mariadb-node2",
+          "ports": [
+            "3306:3306"
+          ]
+        },
+        "deploy": {
+          "instances": 1
+        },
+        "runtime": {
+          "environment_vars": {
+            "MYSQL_ROOT_PASSWORD": "mypassword",
+            "GALERA_CLUSTER_NAME": "my_galera_cluster",
+            "GALERA_CLUSTER_ADDRESS": "gcomm://mariadb-node1,mariadb-node2,mariadb-node3",
+            "GALERA_NODE_NAME": "mariadb-node2"
+          }
+        }
+      },
+      "name": "mariadb-node2",
+      "image": {
+        "origin": {
+          "type": "docker-hub",
+          "details": {
+            "target": "mariadb:latest"
+          }
+        }
+      },
+      "stateful": false
+    },
+    "mariadb-node3": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "mariadb-node3",
+          "ports": [
+            "3306:3306"
+          ]
+        },
+        "deploy": {
+          "instances": 1
+        },
+        "runtime": {
+          "environment_vars": {
+            "MYSQL_ROOT_PASSWORD": "mypassword",
+            "GALERA_CLUSTER_NAME": "my_galera_cluster",
+            "GALERA_CLUSTER_ADDRESS": "gcomm://mariadb-node1,mariadb-node2,mariadb-node3",
+            "GALERA_NODE_NAME": "mariadb-node3"
+          }
+        }
+      },
+      "name": "mariadb-node3",
+      "image": {
+        "origin": {
+          "type": "docker-hub",
+          "details": {
+            "target": "mariadb:latest"
+          }
+        }
+      },
+      "stateful": false
+    }
+  }
+}
